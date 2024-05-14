@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mon Application</string>
+    <string name="app_title">Tache à faire</string>
+    <string name="no_sort">aucun trie</string>
+    <string name="sort_by_pririority">tier par pririorité</string>
+    <string name="sort_title">trier par titre</string>
+</resources>
