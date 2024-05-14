@@ -4,8 +4,8 @@ public class TestTaskStorage implements IStorageTasks{
     @Override
     public TaskList ReadTasks() {
         TaskList list = new TaskList();
-        Task task1 = new Task();
-        Task task2 = new Task();
+        Task task1 = new Task("tache 1", null,0);
+        Task task2 = new Task("tache 2", null,0);
         list.addTasks(task1);
         list.addTasks(task2);
 
