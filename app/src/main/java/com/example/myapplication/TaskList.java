@@ -6,7 +6,7 @@ import com.example.myapplication.Exception.TaskNotFoundException;
 
 public class TaskList {
 
-    private List<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(){
         this.tasks = new ArrayList<Task>() {
@@ -18,7 +18,7 @@ public class TaskList {
      *
      * @return A list of Task objects.
      */
-    public List<Task> getAllTask() {
+    public ArrayList<Task> getAllTask() {
         return tasks;
     }
 

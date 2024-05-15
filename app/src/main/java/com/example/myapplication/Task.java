@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
 
     private  String title ;
     private  String description ;
@@ -79,6 +81,11 @@ public class Task {
             res = title.equals(task.title);
         }
         return res;
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Importance: " + priority;
     }
 
 }
