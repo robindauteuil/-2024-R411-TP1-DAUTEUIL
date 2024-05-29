@@ -31,8 +31,9 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void replaceTask(Task task){
+    public void replaceTask(Task task, int index){
 
+        this.tasks.set(index, task);
 
     }
 
