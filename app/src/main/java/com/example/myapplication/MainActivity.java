@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.my_list_view);
         //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, taskList.getAllTask());
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, taskList.getAllTask());
+        adapter = new TaskAdapter(this, android.R.layout.simple_list_item_1, taskList);
         // Configurer l'adaptateur pour la ListView
         listView.setAdapter(adapter);
 
