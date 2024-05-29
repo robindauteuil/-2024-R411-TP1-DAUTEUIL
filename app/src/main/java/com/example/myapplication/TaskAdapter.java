@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,23 +19,29 @@ import com.example.myapplication.Exception.TaskNotFoundException;
 public class TaskAdapter extends ArrayAdapter<Task> {
 
     private TaskList model;
+    private IStorageTasks storage;
 
-    public TaskAdapter(@NonNull Context context, int resource, TaskList tasks)
+    public TaskAdapter(@NonNull Context context, int resource, TaskList tasks, IStorageTasks storage)
     {
         super(context, resource, tasks.getAllTask());
         model = tasks;
+        this.storage = storage;
     }
 
 
     public void AddTask(Task task){
         model.addTasks(task);
         notifyDataSetChanged();
+        storage.addTask(task);
+
 
     }
 
     public void UpdateTask(Task task, int index){
         model.replaceTask(task,index);
         notifyDataSetChanged();
+        storage.updateTask(task);
+
 
     }
 
@@ -43,12 +50,16 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         try{
             model.removeTask(task);
             notifyDataSetChanged();
+            storage.DeleteTask(task);
+
         }catch(TaskNotFoundException e) {
             Toast.makeText(this.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
     }
+
+
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
@@ -77,6 +88,10 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         holder.priority = convertView.findViewById(R.id.taskPriority);
         convertView.setTag(holder);
 
+        holder.completed.setOnCheckedChangeListener(createCheckedChangeListener());
+        //Task task = tasks.get(position);
+        // Attacher le tag avant de définir le listener
+        holder.completed.setTag(task);
 
         task = getItem(position);
         holder.title.setText(task.getTitle());
@@ -86,6 +101,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     }
 
+
+    private CompoundButton.OnCheckedChangeListener createCheckedChangeListener() {
+        return (buttonView, isChecked) -> {
+            Task task = (Task) buttonView.getTag();
+            task.setCompleted(isChecked);
+            storage.updateTask(task);
+            //preferencesStorage.UpdateTask(task); // Mettre à jour la tâche dans le stockage
+        };
+    }
 
 
     private class TaskViewHolder{

@@ -68,6 +68,8 @@ public class Task implements Serializable {
 
     // Setter for completed status
     public void setCompleted(boolean completed) {
+
+
         this.completed = completed;
     }
 

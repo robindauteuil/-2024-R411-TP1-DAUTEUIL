@@ -20,7 +20,7 @@ import com.example.myapplication.TaskList;
 public class MainActivity extends AppCompatActivity {
 
 
-    private  ArrayAdapter<Task> adapter;
+    private  TaskAdapter adapter;
 
     private TaskList taskList;
     private IStorageTasks tasksStore;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.my_list_view);
         //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, taskList.getAllTask());
-        adapter = new TaskAdapter(this, android.R.layout.simple_list_item_1, taskList);
+        adapter = new TaskAdapter(this, android.R.layout.simple_list_item_1, taskList,tasksStore);
         // Configurer l'adaptateur pour la ListView
         listView.setAdapter(adapter);
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             taskList.removeTask(task);
-            tasksStore.DeleteTask(task);
+            //tasksStore.DeleteTask(task);
         }catch(TaskNotFoundException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -95,10 +95,14 @@ public class MainActivity extends AppCompatActivity {
     // Méthode pour gérer le clic sur les éléments de la ListView
     private void onTaskItemClick(AdapterView<?> parent, View view, int position, long id) {
         selectInt = position; // Sauvegarder l'index de la tâche sélectionnée
-        Task selectedTask = taskList.getAllTask().get(position); // Récupérer la tâche sélectionnée
-        Intent intent = new Intent(MainActivity.this, MainActivity2.class); // Créer un intent pour lancer MainActivity2
-        intent.putExtra("taskClicked", selectedTask); // Passer la tâche sélectionnée à l'activité suivante
-        startActivityForResult(intent, ActivityCode.EDIT); // Lancer l'activité pour éditer la tâche
+        Task selectedTask = taskList.getAllTask().get(position);// Récupérer la tâche sélectionnée
+        if(!selectedTask.isCompleted()){
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class); // Créer un intent pour lancer MainActivity2
+            intent.putExtra("taskClicked", selectedTask); // Passer la tâche sélectionnée à l'activité suivante
+            startActivityForResult(intent, ActivityCode.EDIT); // Lancer l'activité pour éditer la tâche
+
+        }
+
     }
 
 
@@ -122,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 Task taskModif = (Task)extras.getSerializable("task");
 
                 taskList.getAllTask().set(selectInt, taskModif); // Mettre à jour la tâche dans la liste
-                adapter.notifyDataSetChanged(); // Notifier l'adaptateur de la mise à jour
-                tasksStore.updateTask(taskModif); // Mettre à jour la tâche dans le stockage
+                adapter.UpdateTask(taskModif,selectInt); // Notifier l'adaptateur de la mise à jour
+                //tasksStore.updateTask(taskModif); // Mettre à jour la tâche dans le stockage
 
 
             }
@@ -134,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
             {
                 Bundle extras = data.getExtras();
                 Task newTask = (Task)extras.getSerializable("task");
-                taskList.addTasks(newTask); // Ajouter la nouvelle tâche à la liste
-                adapter.notifyDataSetChanged(); // Notifier l'adaptateur de la mise à jour
-                tasksStore.addTask(newTask); // Ajouter la nouvelle tâche dans le stockage
+                //taskList.addTasks(newTask); // Ajouter la nouvelle tâche à la liste
+                adapter.AddTask(newTask); // Notifier l'adaptateur de la mise à jour
+                //tasksStore.addTask(newTask); // Ajouter la nouvelle tâche dans le stockage
             }
         }
     }
