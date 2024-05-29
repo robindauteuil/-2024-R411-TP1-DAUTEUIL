@@ -11,4 +11,16 @@ public class TestTaskStorage implements IStorageTasks{
 
         return list;
     }
+
+    @Override
+    public void updateTask(Task task) {
+
+    }
+
+    @Override
+    public void addTask(Task task) {
+
+    }
+
+
 }

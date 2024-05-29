@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -19,7 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
     private EditText zoneTitre;
     private EditText description;
 
-    private RatingBar pririority;
+    private RatingBar priority;
 
     private Task task;
     @Override
@@ -29,13 +33,20 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         description = findViewById(R.id.description);
         zoneTitre = findViewById(R.id.titre);
-        pririority = findViewById(R.id.priority);
+        priority = findViewById(R.id.priority);
+        ImageButton button = findViewById(R.id.imageButton2);
+
+
         task = (Task) getIntent().getSerializableExtra("taskClicked");
+
+        button.setOnClickListener(v -> clickOnAdd());
+
         if (task != null) {
             zoneTitre.setText(task.getTitle());
             description.setText(task.getDescription());
-            pririority.setRating(task.getPriority());
+            priority.setRating(task.getPriority());
         }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,21 +56,33 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+public void clickOnAdd(){
+    createOrUpdate();
+    Intent intent = new Intent();
+    intent.putExtra("task", task);
+    setResult(ActivityCode.ADD, intent);
+    finish();
+}
+
 
     @Override
     public void onBackPressed() {
 
-        createOrUpdate();
-        // Créez un Intent pour retourner à la MainActivity
+
+        createOrUpdate();  // Mettez à jour la tâche
+
+        // Préparez les données à retourner
+        Intent intent = new Intent();
+        intent.putExtra("task", task);
+        setResult(ActivityCode.EDIT, intent);
         super.onBackPressed();
-        Intent intent = new Intent(MainActivity2.this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Terminez l'activité actuelle
+        finish();
+
     }
 
     protected void createOrUpdate(){
 
-        task.setDescription(description.toString());
-        task.setPriority(pririority.getNumStars());
+        task = new Task(zoneTitre.getText().toString(),description.getText().toString(),(int) priority.getRating());
+
     }
 }

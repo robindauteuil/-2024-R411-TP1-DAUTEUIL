@@ -5,4 +5,5 @@
     <string name="no_sort">aucun trie</string>
     <string name="sort_by_pririority">tier par pririorité</string>
     <string name="sort_title">trier par titre</string>
+    <string name="editTask">Modifier une Tache</string>
 </resources>

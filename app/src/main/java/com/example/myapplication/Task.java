@@ -30,6 +30,7 @@ public class Task implements Serializable {
         setPriority(priority);
     }
 
+
     // Getter for title
     public String getTitle() {
         return title;
@@ -71,6 +72,12 @@ public class Task implements Serializable {
     }
 
 
+    /**
+     * Vérifie si cet objet est "égal à" l'objet spécifié.
+     *
+     * @param obj L'objet à comparer avec ce `Task` pour l'égalité.
+     * @return `true` si les objets sont égaux, `false` sinon.
+     */
     @Override
     public boolean equals(Object obj) {
         boolean res = false;
@@ -83,6 +90,12 @@ public class Task implements Serializable {
         return res;
     }
 
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de cette tâche.
+     *
+     * @return Une chaîne de caractères représentant cette tâche avec son importance.
+     */
     @Override
     public String toString() {
         return "Title: " + title + ", Importance: " + priority;
