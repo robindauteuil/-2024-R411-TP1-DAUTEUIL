@@ -34,7 +34,7 @@ public class PreferencesStorage implements IStorageTasks{
 
     @Override
     public void updateTask(Task task) {
-
+        saveTasks();
         //this.tasks.replaceTask(task);
 
     }
@@ -43,6 +43,12 @@ public class PreferencesStorage implements IStorageTasks{
     public void addTask(Task task) {
         saveTasks();
         //this.tasks.addTasks(task);
+
+    }
+
+    @Override
+    public void DeleteTask(Task task) {
+        saveTasks();
 
     }
 

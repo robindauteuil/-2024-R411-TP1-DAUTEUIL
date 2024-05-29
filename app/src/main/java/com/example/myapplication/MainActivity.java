@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.Exception.TaskNotFoundException;
 import com.example.myapplication.TaskList;
 public class MainActivity extends AppCompatActivity {
 
@@ -48,11 +52,46 @@ public class MainActivity extends AppCompatActivity {
 
         // Configurez l'écouteur de clics
         listView.setOnItemClickListener(this::onTaskItemClick);
+        listView.setOnItemLongClickListener(this::onTaskItemLongClick);
 
 
     }
 
 
+    private boolean onTaskItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Task selectedTask = adapter.getItem(position);
+        if (selectedTask != null) {
+            showDeleteConfirmationDialog(selectedTask);
+        }
+        return true;
+    }
+
+    private void showDeleteConfirmationDialog(Task task) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Task")
+                .setMessage("Are you sure you want to delete this task?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteTask(task))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
+    private void deleteTask(Task task) {
+
+        try{
+            taskList.removeTask(task);
+            tasksStore.DeleteTask(task);
+        }catch(TaskNotFoundException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        // Mettre à jour l'adaptateur
+        adapter.remove(task);
+        adapter.notifyDataSetChanged();
+
+    }
     // Méthode pour gérer le clic sur les éléments de la ListView
     private void onTaskItemClick(AdapterView<?> parent, View view, int position, long id) {
         selectInt = position; // Sauvegarder l'index de la tâche sélectionnée

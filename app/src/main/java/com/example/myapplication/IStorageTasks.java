@@ -9,4 +9,6 @@ public interface IStorageTasks {
 
 
     public void addTask(Task task);
+
+    public void DeleteTask(Task task);
 }

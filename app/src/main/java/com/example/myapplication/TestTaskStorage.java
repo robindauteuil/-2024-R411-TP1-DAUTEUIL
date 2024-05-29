@@ -23,5 +23,10 @@ public class TestTaskStorage implements IStorageTasks{
 
     }
 
+    @Override
+    public void DeleteTask(Task task) {
+
+    }
+
 
 }
