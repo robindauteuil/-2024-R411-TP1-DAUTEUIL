@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import com.example.myapplication.Exception.TaskNotFoundException;
 
@@ -46,6 +48,27 @@ public class TaskList {
     public void removeTask(Task task)throws TaskNotFoundException {
         if (tasks.contains(task)) tasks.remove(task);
         else throw new TaskNotFoundException("Task with title '" + task.getTitle() + "' not found.");
+    }
+
+
+    // Méthode pour trier par ordre alphabétique des titres
+    public void sortByTitle() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return t1.getTitle().compareToIgnoreCase(t2.getTitle());
+            }
+        });
+    }
+
+    // Méthode pour trier par ordre décroissant des priorités
+    public void sortByPriorityDescending() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return Integer.compare(t2.getPriority(), t1.getPriority());
+            }
+        });
     }
 
 

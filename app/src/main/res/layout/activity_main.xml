@@ -40,13 +40,13 @@
             android:text="@string/no_sort" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/sort_by_priority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sort_by_pririority" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/sort_by_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sort_title" />

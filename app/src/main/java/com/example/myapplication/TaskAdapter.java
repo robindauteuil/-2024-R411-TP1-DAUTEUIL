@@ -112,6 +112,19 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     }
 
 
+    // Méthode pour trier par ordre alphabétique des titres et notifier les changements
+    public void sortByTitle() {
+        model.sortByTitle();
+        notifyDataSetChanged(); // Notifier l'adaptateur que les données ont changé
+    }
+
+    // Méthode pour trier par ordre décroissant des priorités et notifier les changements
+    public void sortByPriorityDescending() {
+        model.sortByPriorityDescending();
+        notifyDataSetChanged(); // Notifier l'adaptateur que les données ont changé
+    }
+
+
     private class TaskViewHolder{
         TextView title;
         CheckBox completed;

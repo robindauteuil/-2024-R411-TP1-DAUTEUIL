@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -55,7 +56,21 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(this::onTaskItemLongClick);
 
 
+        RadioGroup sortOptions = findViewById(R.id.radioGroup);
+        sortOptions.setOnCheckedChangeListener(this::setupSortOption);
+
+
     }
+
+    // Méthode pour gérer le changement de sélection des boutons radio
+    private void setupSortOption(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.sort_by_title) {
+            adapter.sortByTitle();
+        } else if (checkedId == R.id.sort_by_priority) {
+            adapter.sortByPriorityDescending();
+        }
+    }
+
 
 
     private boolean onTaskItemLongClick(AdapterView<?> parent, View view, int position, long id) {
