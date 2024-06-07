@@ -29,6 +29,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     }
 
 
+    /**
+     * Ajoute une nouvelle tâche à la liste de tâches.
+     *
+     * Cette méthode ajoute la tâche spécifiée au modèle, notifie l'adaptateur des changements de données,
+     * et met à jour le stockage persistant.
+     *
+     * @param task La tâche à ajouter.
+     */
     public void AddTask(Task task){
         model.addTasks(task);
         notifyDataSetChanged();
@@ -37,6 +45,16 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     }
 
+
+    /**
+     * Met à jour une tâche existante à l'index spécifié.
+     *
+     * Cette méthode remplace la tâche à l'index donné dans le modèle, notifie l'adaptateur des changements de données,
+     * et met à jour le stockage persistant avec les nouvelles informations de la tâche.
+     *
+     * @param task La tâche avec les informations mises à jour.
+     * @param index L'index de la tâche à remplacer dans la liste.
+     */
     public void UpdateTask(Task task, int index){
         model.replaceTask(task,index);
         notifyDataSetChanged();
@@ -45,6 +63,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     }
 
+
+    /**
+     * Supprime une tâche de la liste de tâches.
+     *
+     * Cette méthode tente de supprimer la tâche spécifiée du modèle. Si la tâche est introuvable, elle affiche un message d'erreur.
+     * Après la suppression réussie de la tâche, elle notifie l'adaptateur des changements de données et met à jour le stockage persistant.
+     *
+     * @param task La tâche à supprimer.
+     */
     public void RemoveTask(Task task){
 
         try{

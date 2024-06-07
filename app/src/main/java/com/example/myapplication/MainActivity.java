@@ -93,18 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteTask(Task task) {
 
-        try{
-            taskList.removeTask(task);
-            //tasksStore.DeleteTask(task);
-        }catch(TaskNotFoundException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-
-
         // Mettre à jour l'adaptateur
-        adapter.remove(task);
-        adapter.notifyDataSetChanged();
+        adapter.RemoveTask(task);
+
 
     }
     // Méthode pour gérer le clic sur les éléments de la ListView
@@ -143,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 taskList.getAllTask().set(selectInt, taskModif); // Mettre à jour la tâche dans la liste
                 adapter.UpdateTask(taskModif,selectInt); // Notifier l'adaptateur de la mise à jour
                 //tasksStore.updateTask(taskModif); // Mettre à jour la tâche dans le stockage
+
 
 
             }

@@ -6,4 +6,9 @@
     <string name="sort_by_pririority">tier par pririorité</string>
     <string name="sort_title">trier par titre</string>
     <string name="editTask">Modifier une Tache</string>
+    <string name="hint">Entrer la description</string>
+    <string name="labelPriority">priorité :</string>
+    <string name="labelTitre">titre</string>
+
+
 </resources>
